@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1087957213781",
+    "project_id": "apptik1",
+    "storage_bucket": "apptik1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087957213781:android:a0aa83afadeb148b44eadc",
+        "android_client_info": {
+          "package_name": "com.example.apptik1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHJhwudBpaUCviWLDhCxQ7KBx-xDxbXTA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
