@@ -3,6 +3,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProfilAdminPage extends StatefulWidget {
+  const ProfilAdminPage({super.key});
+
   @override
   _ProfilAdminPageState createState() => _ProfilAdminPageState();
 }
@@ -51,9 +53,9 @@ class _ProfilAdminPageState extends State<ProfilAdminPage> {
         'phone': phoneController.text.trim(),
       });
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Profil mis à jour')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Profil mis à jour')));
     }
   }
 
@@ -74,12 +76,19 @@ class _ProfilAdminPageState extends State<ProfilAdminPage> {
                     CircleAvatar(
                       radius: 45,
                       backgroundColor: Color(0xFF355E4B),
-                      child: Icon(Icons.admin_panel_settings, size: 40, color: Colors.white),
+                      child: Icon(
+                        Icons.admin_panel_settings,
+                        size: 40,
+                        color: Colors.white,
+                      ),
                     ),
                     SizedBox(height: 12),
                     Text(
                       'Administrateur',
-                      style: TextStyle(color: Colors.grey[700], fontStyle: FontStyle.italic),
+                      style: TextStyle(
+                        color: Colors.grey[700],
+                        fontStyle: FontStyle.italic,
+                      ),
                     ),
                     SizedBox(height: 20),
                     TextField(
@@ -96,7 +105,8 @@ class _ProfilAdminPageState extends State<ProfilAdminPage> {
                         labelText: 'Email',
                         border: OutlineInputBorder(),
                       ),
-                      readOnly: true, // Empêche la modification directe de l'email
+                      readOnly:
+                          true, // Empêche la modification directe de l'email
                     ),
                     SizedBox(height: 12),
                     TextField(
@@ -113,8 +123,13 @@ class _ProfilAdminPageState extends State<ProfilAdminPage> {
                       label: Text("Mettre à jour"),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF355E4B),
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                       ),
                     ),
                   ],

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class GererUtilisateursPage extends StatefulWidget {
+  const GererUtilisateursPage({super.key});
+
   @override
   _GererUtilisateursPageState createState() => _GererUtilisateursPageState();
 }
@@ -10,10 +12,9 @@ class _GererUtilisateursPageState extends State<GererUtilisateursPage> {
   String search = '';
 
   Future<void> updateStatut(String id, bool activer) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(id)
-        .update({'statut': activer ? 'actif' : 'inactif'});
+    await FirebaseFirestore.instance.collection('users').doc(id).update({
+      'statut': activer ? 'actif' : 'inactif',
+    });
   }
 
   Future<void> deleteUser(String id) async {
@@ -43,18 +44,41 @@ class _GererUtilisateursPageState extends State<GererUtilisateursPage> {
             SizedBox(height: 16),
             Row(
               children: [
-                Expanded(child: Text("Nom", style: TextStyle(fontWeight: FontWeight.bold))),
-                Expanded(child: Text("Role", style: TextStyle(fontWeight: FontWeight.bold))),
-                Expanded(child: Text("Statut", style: TextStyle(fontWeight: FontWeight.bold))),
-                Expanded(child: Text("Actions", style: TextStyle(fontWeight: FontWeight.bold))),
+                Expanded(
+                  child: Text(
+                    "Nom",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    "Role",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    "Statut",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    "Actions",
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
               ],
             ),
             Divider(),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance.collection('users').snapshots(),
+                stream: FirebaseFirestore.instance
+                    .collection('users')
+                    .snapshots(),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                  if (!snapshot.hasData)
+                    return Center(child: CircularProgressIndicator());
 
                   final users = snapshot.data!.docs.where((doc) {
                     final data = doc.data() as Map<String, dynamic>;
@@ -78,15 +102,22 @@ class _GererUtilisateursPageState extends State<GererUtilisateursPage> {
                           Expanded(child: Text(role)),
                           Expanded(
                             child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                              padding: EdgeInsets.symmetric(
+                                vertical: 4,
+                                horizontal: 8,
+                              ),
                               decoration: BoxDecoration(
-                                color: statut == 'actif' ? Colors.green[100] : Colors.red[100],
+                                color: statut == 'actif'
+                                    ? Colors.green[100]
+                                    : Colors.red[100],
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Text(
                                 statut == 'actif' ? 'Actif' : 'Inactif',
                                 style: TextStyle(
-                                  color: statut == 'actif' ? Colors.green : Colors.red,
+                                  color: statut == 'actif'
+                                      ? Colors.green
+                                      : Colors.red,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -103,10 +134,15 @@ class _GererUtilisateursPageState extends State<GererUtilisateursPage> {
                                 ),
                                 IconButton(
                                   icon: Icon(
-                                    statut == 'actif' ? Icons.block : Icons.check_circle,
-                                    color: statut == 'actif' ? Colors.orange : Colors.green,
+                                    statut == 'actif'
+                                        ? Icons.block
+                                        : Icons.check_circle,
+                                    color: statut == 'actif'
+                                        ? Colors.orange
+                                        : Colors.green,
                                   ),
-                                  onPressed: () => updateStatut(id, statut != 'actif'),
+                                  onPressed: () =>
+                                      updateStatut(id, statut != 'actif'),
                                 ),
                                 IconButton(
                                   icon: Icon(Icons.delete, color: Colors.red),
@@ -126,7 +162,9 @@ class _GererUtilisateursPageState extends State<GererUtilisateursPage> {
             ElevatedButton.icon(
               icon: Icon(Icons.add),
               label: Text('Ajouter un utilisateur'),
-              style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF355E4B)),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Color(0xFF355E4B),
+              ),
               onPressed: () {
                 // Naviguer vers une page d'ajout (à implémenter)
               },

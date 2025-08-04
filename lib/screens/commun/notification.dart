@@ -6,6 +6,8 @@ class NotificationsPage extends StatelessWidget {
   final _auth = FirebaseAuth.instance;
   final _firestore = FirebaseFirestore.instance;
 
+  NotificationsPage({super.key});
+
   Stream<QuerySnapshot> getUserNotifications() {
     final uid = _auth.currentUser?.uid;
     if (uid == null) return const Stream.empty();
@@ -21,7 +23,9 @@ class NotificationsPage extends StatelessWidget {
   }
 
   Future<void> marquerCommeLue(String docId) async {
-    await _firestore.collection('notifications').doc(docId).update({'lu': true});
+    await _firestore.collection('notifications').doc(docId).update({
+      'lu': true,
+    });
   }
 
   @override

@@ -1,7 +1,7 @@
-import 'package:apptik1/answerTik.dart';
+import 'package:apptik1/screens/commun/answerTik.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'profil_formateur_page.dart';  // Crée-le si besoin
+import 'package:apptik1/screens/formateur/profil_formateur_page.dart'; // Crée-le si besoin
 
 class AccueilFormateurPage extends StatelessWidget {
   const AccueilFormateurPage({super.key});
@@ -22,7 +22,7 @@ class AccueilFormateurPage extends StatelessWidget {
               await FirebaseAuth.instance.signOut();
               Navigator.popUntil(context, (route) => route.isFirst);
             },
-          )
+          ),
         ],
       ),
       body: Padding(
@@ -36,7 +36,9 @@ class AccueilFormateurPage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProfilFormateurPage ()),
+                      MaterialPageRoute(
+                        builder: (context) => ProfilFormateurPage(),
+                      ),
                     );
                   },
                   child: CircleAvatar(
@@ -63,7 +65,7 @@ class AccueilFormateurPage extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>RepondreTicketPage()),
+                  MaterialPageRoute(builder: (context) => RepondreTicketPage()),
                 );
               },
             ),
@@ -77,9 +79,9 @@ class AccueilFormateurPage extends StatelessWidget {
               label: Text("Voir les statistiques"),
               onPressed: () {
                 // TODO: Naviguer vers une future page statistiques
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text("Bientôt disponible")),
-                );
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text("Bientôt disponible")));
               },
             ),
           ],

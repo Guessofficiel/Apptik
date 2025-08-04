@@ -1,91 +1,89 @@
-import 'package:apptik1/inscription.dart';
-import 'package:apptik1/login.dart';
+import 'package:apptik1/screens/welcomeScreen.dart';
 import 'package:flutter/material.dart';
-import 'firebase_options.dart'; // Ce fichier est généré par la commande `flutterfire configure`
+import 'package:apptik1/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
-// ...existing code...
+import 'package:google_fonts/google_fonts.dart';
+import 'package:go_router/go_router.dart';
+
+// Import de tes écrans
+import 'package:apptik1/screens/auth/inscription.dart';
+import 'package:apptik1/screens/auth/login.dart';
+import 'package:apptik1/screens/apprenant/apprenant_page.dart';
+import 'package:apptik1/screens/formateur/profil_formateur_page.dart';
+import 'package:apptik1/screens/admin/admin_page.dart';
+// import 'package:apptik1/screens/auth/welcome.dart'; // ✅ Remplace ça si WelcomeScreen est ailleurs
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  runApp(ApptikApp());
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  runApp(const ApptikApp());
 }
 
-
-
 class ApptikApp extends StatelessWidget {
+  const ApptikApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'APPTIK',
-      home: WelcomeScreen(),
+      routerConfig: _appRouter,
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: kPrimaryColor,
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
+        textTheme: GoogleFonts.poppinsTextTheme(),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: kPrimaryColor,
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+        textTheme: GoogleFonts.poppinsTextTheme(
+          ThemeData(brightness: Brightness.dark).textTheme,
+        ),
+      ),
+      themeMode: ThemeMode.system,
     );
   }
 }
 
+// Couleurs globales
 const Color kPrimaryColor = Color(0xFF355E4B);
 const Color kTextFieldColor = Color(0xFF4F7F68);
 const Color kButtonColor = Colors.black;
 
-class WelcomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kPrimaryColor,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text("Bienvenue", style: TextStyle(fontSize: 40, fontStyle: FontStyle.italic, color: Colors.white)),
-            Text("sur", style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic, color: Colors.white)),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(text: 'APP', style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.white)),
-                  TextSpan(text: 'TIK', style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold, color: Colors.black)),
-                ],
-              ),
-            ),
-            SizedBox(height: 40),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    foregroundColor: Colors.black,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => RegisterScreen()),
-                    );
-                  },
-                  child: Text("S'inscrire"),
-                ),
-                SizedBox(width: 10),
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kButtonColor,
-                    foregroundColor: Colors.white,
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                    );
-                  },
-                  child: Text("Se connecter"),
-                ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+// Router GoRouter
+final GoRouter _appRouter = GoRouter(
+  initialLocation: '/',
+  routes: [
+    // ✅ Route d’accueil
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const WelcomeScreen(),
+    ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: '/register',
+      builder: (context, state) => const RegisterScreen(),
+    ),
+    GoRoute(
+      path: '/apprenant',
+      builder: (context, state) => const AccueilPage(),
+    ),
+    GoRoute(
+      path: '/formateur',
+      builder: (context, state) => const ProfilFormateurPage(),
+    ),
+    GoRoute(
+      path: '/admin',
+      builder: (context, state) => AccueilAdministrateurPage(),
+    ),
+  ],
+);

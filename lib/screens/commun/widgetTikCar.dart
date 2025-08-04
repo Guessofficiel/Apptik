@@ -9,8 +9,8 @@ class TicketCard extends StatefulWidget {
     required this.num,
     required this.title,
     required this.status,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<TicketCard> createState() => _TicketCardState();
@@ -30,15 +30,17 @@ class _TicketCardState extends State<TicketCard> {
   }
 }
 
-
-
-
 class TicketCardStateless extends StatelessWidget {
   final String num;
   final String title;
   final String status;
 
-  const TicketCardStateless({required this.num, required this.title, required this.status});
+  const TicketCardStateless({
+    super.key,
+    required this.num,
+    required this.title,
+    required this.status,
+  });
 
   Color getStatusColor() {
     switch (status) {
@@ -59,10 +61,7 @@ class TicketCardStateless extends StatelessWidget {
       child: ListTile(
         title: Text(title),
         subtitle: Text(num),
-        trailing: Chip(
-          label: Text(status),
-          backgroundColor: getStatusColor(),
-        ),
+        trailing: Chip(label: Text(status), backgroundColor: getStatusColor()),
       ),
     );
   }

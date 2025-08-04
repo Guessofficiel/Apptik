@@ -83,7 +83,7 @@ class AccueilAdministrateurPage extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF355E4B),
+                  backgroundColor: Color.fromARGB(255, 254, 254, 254),
                   padding: EdgeInsets.symmetric(vertical: 14),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                 ),

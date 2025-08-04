@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ProfilFormateurPage extends StatefulWidget {
+  const ProfilFormateurPage({super.key});
+
   @override
   _ProfilFormateurPageState createState() => _ProfilFormateurPageState();
 }
@@ -23,7 +25,10 @@ class _ProfilFormateurPageState extends State<ProfilFormateurPage> {
   Future<void> _loadUserData() async {
     try {
       final uid = FirebaseAuth.instance.currentUser!.uid;
-      final doc = await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      final doc = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(uid)
+          .get();
       final data = doc.data();
 
       if (data != null) {
@@ -33,7 +38,9 @@ class _ProfilFormateurPageState extends State<ProfilFormateurPage> {
       }
     } catch (e) {
       print("Erreur de chargement : $e");
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Erreur de chargement")));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Erreur de chargement")));
     } finally {
       setState(() {
         isLoading = false;
@@ -49,10 +56,14 @@ class _ProfilFormateurPageState extends State<ProfilFormateurPage> {
         'email': emailController.text.trim(),
         'phone': phoneController.text.trim(),
       });
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Profil mis à jour.")));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Profil mis à jour.")));
     } catch (e) {
       print("Erreur de mise à jour : $e");
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Échec de mise à jour.")));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("Échec de mise à jour.")));
     }
   }
 
